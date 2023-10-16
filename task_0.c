@@ -39,12 +39,6 @@ int _printf(const char *format, ...)
 				if (str == NULL)
 				{
 					str = "(null)";
-					while (*str != '\0')
-					{
-						_putchar(*str);
-						str++;
-						string_len++;
-					}
 				}
 				else
 				{
