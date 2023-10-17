@@ -56,6 +56,10 @@ int _printf(const char *format, ...)
 				_putchar('%');
 				string_len++;
 			}
+			else
+			{
+				;
+			}
 		}
 		format++;
 	}
