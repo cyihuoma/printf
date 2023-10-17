@@ -15,18 +15,17 @@ int _printf(const char *format, ...)
 
 	string_len = 0;
 
-	while(*format != '\0')
+	while(*format)
 	{
-		if (*format != '%')
+		if (*format == '%')
 		{
-			_putchar(*format);
+		format++;
+			if (*format == '%')
+			{
+			_putchar('%');
 			string_len++;
-		}
-		else
-		{
-			format++;
-
-			if (*format == 'c')
+			}
+			else if (*format =='c')
 			{
 				character = va_arg(elements, int);
 				_putchar((char)character);
@@ -42,7 +41,7 @@ int _printf(const char *format, ...)
 				}
 				else
 				{
-					while (*str != '\0')
+					while (*str)
 					{
 						_putchar(*str);
 						str++;
@@ -51,19 +50,14 @@ int _printf(const char *format, ...)
 				}
 
 			}
-			else if (*format == '%')
-			{
-				_putchar('%');
-				string_len++;
-			}
 			else
 			{
-				;
+				_putchar(*format);
+				string_len++;
 			}
-		}
 		format++;
 	}
-	_putchar('\n');
 	va_end(elements);
+	}
 	return (string_len);
 }
