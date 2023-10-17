@@ -22,8 +22,6 @@ int _printf(const char *format, ...)
 		format++;
 			if (*format == '\0')
 			{
-				_putchar('%');
-				string_len++;
 				return (-1);
 			}
 			if (*format == '%')
