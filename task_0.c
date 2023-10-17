@@ -29,7 +29,7 @@ int _printf(const char *format, ...)
 			if (*format == 'c')
 			{
 				character = va_arg(elements, int);
-				_putchar(character);
+				_putchar((char)character);
 				string_len++;
 			}
 			else if (*format == 's')
@@ -40,6 +40,8 @@ int _printf(const char *format, ...)
 				{
 					str = "(null)";
 				}
+				else
+				{
 					while (*str != '\0')
 					{
 						_putchar(*str);
