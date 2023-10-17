@@ -63,10 +63,3 @@ int _printf(const char *format, ...)
 	va_end(elements);
 	return (string_len);
 }
-int main(void)
-{
-	char percent = '%';
-	_printf("%%", percent);
-
-	return (0);
-}
