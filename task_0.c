@@ -72,7 +72,7 @@ int _printf(const char *format, ...)
 /**
  * print_number - Print an integer using _putchar
  * @n: The integer to print
- * @len: Pointer to the lenght counter
+ * @len: Pointer to the length of the ineteger
  */
 void print_number(int n, int *len)
 {
