@@ -9,6 +9,7 @@ int _printf(const char *format, ...)
 {
 	int int_len = 0;
 	int num;
+	unsigned int u_num;
 	int bit, binary[32], i;
 	va_list elements;
 	va_start(elements, format);
@@ -26,26 +27,26 @@ int _printf(const char *format, ...)
 			if (*format == 'b')
 			{
 			num = va_arg(elements, int);
+			u_num = num;
 			i = 0;
 
 			if (num == 0)
+			{
+				u_num = UINT_MAX + num + 1;
+			}
+
+			if (u_num == 0)
 			{
 				_putchar('0');
 				int_len++;
 			}
 			else
 			{
-				if (num < 0)
+				while (u_num > 0)
 				{
-					_putchar('-');
-					int_len++;
-					num = -num;
-				}
-				while (num > 0)
-				{
-					bit = num % 2;
+					bit = u_num % 2;
 					binary[i] = bit;
-					num /= 2;
+					u_num /= 2;
 					i++;
 				}
 				for(i -=1; i >= 0; i--)
