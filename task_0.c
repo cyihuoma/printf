@@ -17,25 +17,24 @@ int _printf(const char *format, ...)
 
 	while(*format)
 	{
-		if (*format == '%')
+		if (*format != '%')
 		{
-		format++;
-			if (*format == '\0')
+			_putchar(*format);
+			string_len++;
+		}
+		else
+		{
+			format++;
+			
+			switch (*format)
 			{
-				return (-1);
-			}
-			if (*format == '%')
-			{
-				_putchar('%');
-				string_len++;
-			}
-			else if (*format =='c')
-			{
+				case 'c':
 				character = va_arg(elements, int);
 				_putchar((char)character);
 				string_len++;
-			}
-			else if (*format == 's')
+				break;
+			
+				case 's':
 			{
 				const char *str = va_arg(elements, const char *);
 
@@ -43,25 +42,27 @@ int _printf(const char *format, ...)
 				{
 					str = "(null)";
 				}
-				else
-				{
 					while (*str)
 					{
 						_putchar(*str);
 						str++;
 						string_len++;
 					}
+					break;
 				}
 
-			}
-			else
-			{
-				_putchar(*format);
+				case '%':
+				_putchar('%');
+				string_len++;
+				break;
+				default:
+				_putchar('%');
+				putchar(*format);
 				string_len++;
 			}
+		}
 		format++;
 	}
 	va_end(elements);
-	}
 	return (string_len);
 }
