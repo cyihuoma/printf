@@ -9,5 +9,6 @@
 #include <limits.h>
 int _printf(const char *format, ...);
 int _putchar(char c);
+void print_number(int n, int *len);
 
 #endif
