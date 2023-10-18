@@ -32,7 +32,7 @@ int _printf(const char *format, ...)
 			else if (*format =='c')
 			{
 				character = va_arg(elements, int);
-				_putchar(character);
+				_putchar((char)character);
 				string_len++;
 			}
 			else if (*format == 's')
