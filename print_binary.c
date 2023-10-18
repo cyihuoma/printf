@@ -8,7 +8,7 @@
 int _printf(const char *format, ...)
 {
 	int int_len = 0;
-	unsigned int num;
+	int num;
 	int bit, binary[32], i;
 	va_list elements;
 	va_start(elements, format);
@@ -25,9 +25,9 @@ int _printf(const char *format, ...)
 			format++;
 			if (*format == 'b')
 			{
-			num = va_arg(elements, unsigned int);
+			num = va_arg(elements, int);
 			i = 0;
-			
+
 			if (num == 0)
 			{
 				_putchar('0');
@@ -35,9 +35,11 @@ int _printf(const char *format, ...)
 			}
 			else
 			{
-				if (num & (1 <<31))
+				if (num < 0)
 				{
-					num = UINT_MAX - num + 1;
+					_putchar('-');
+					int_len++;
+					num = -num;
 				}
 				while (num > 0)
 				{
@@ -53,10 +55,6 @@ int _printf(const char *format, ...)
 				}
 			}
 		}
-			else
-			{
-				;
-			}
 		}
 		format++;
 	}
