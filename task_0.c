@@ -7,72 +7,66 @@
  */
 int _printf(const char *format, ...)
 {
-	int string_len;
-	char character;
-	
-	va_list elements;
-	va_start(elements, format);
+	int string_len = 0;
+		va_list args;
+		const char *str;
+		int num;
 
-	string_len = 0;
-
-	while(*format)
-	{
-		if (*format != '%')
+		va_start(args, format);
+		while (*format)
 		{
-			_putchar(*format);
-			string_len++;
-		}
-		else
-		{
-			format++;
-			if (*format == '\0')
+			if (*format != '%')
 			{
-				va_end(elements);
-				return (-1);
-			}
-			switch (*format)
-			{
-				case 'c':
-				{
-				character = va_arg(elements, int);
-				_putchar((char)character);
+				_putchar(*format);
 				string_len++;
-				break;
-				}
-				case 's':
+			}
+			else
 			{
-				const char *str = va_arg(elements, const char *);
-
-				if (str == NULL)
-				{
-					str = "(null)";
-				}
-					while (*str)
-					{
-						_putchar(*str);
-						str++;
-						string_len++;
-					}
+				format++;
+				if (*format == '\0')
 					break;
-				}
 
-				case '%':
-			{
-				_putchar('%');
-				string_len++;
-				break;
+				switch (*format)
+				{
+					case 'c':
+						num = va_arg(args, int);
+						_putchar(num);
+						string_len++;
+						break;
+
+					case 's':
+						str = va_arg(args, const char *);
+						if (str == NULL)
+							str = "(null)";
+						while (*str)
+						{
+							_putchar(*str);
+							str++;
+							string_len++;
+						}
+						break;
+
+					case '%':
+						_putchar('%');
+						string_len++;
+						break;
+
+					case 'd':
+					case 'i':
+						num = va_arg(args, int);
+						print_number(num, &string_len);
+						break;
+
+					default:
+						_putchar('%');
+						_putchar(*format);
+						string_len += 2;
+				}
 			}
-				default:
-				_putchar('%');
-				putchar(*format);
-				string_len += 2;
-				break;
-			}
+			format++;
 		}
-		format++;
-	}
-	va_end(elements);
-	return (string_len);
+		va_end(args);
+		return (string_len);
 }
 
 /**
