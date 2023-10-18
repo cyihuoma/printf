@@ -1,9 +1,9 @@
 #include "main.h"
 
 /**
- * _printf - function that prints values to the stdout
+ * _printf - function that produces output according to format
  * @format: The format specifier
- * Return: values count
+ * Return: number of characters printed
  */
 int _printf(const char *format, ...)
 {
