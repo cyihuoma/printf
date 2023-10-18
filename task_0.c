@@ -25,15 +25,20 @@ int _printf(const char *format, ...)
 		else
 		{
 			format++;
-			
+			if (*format == '\0')
+			{
+				va_end(elements);
+				return (-1);
+			}
 			switch (*format)
 			{
 				case 'c':
+				{
 				character = va_arg(elements, int);
 				_putchar((char)character);
 				string_len++;
 				break;
-			
+				}
 				case 's':
 			{
 				const char *str = va_arg(elements, const char *);
@@ -52,13 +57,16 @@ int _printf(const char *format, ...)
 				}
 
 				case '%':
+			{
 				_putchar('%');
 				string_len++;
 				break;
+			}
 				default:
 				_putchar('%');
 				putchar(*format);
-				string_len++;
+				string_len += 2;
+				break;
 			}
 		}
 		format++;
