@@ -1,95 +1,128 @@
 #include "main.h"
 
 /**
- * _printf - function that produces output according to format
- * @format: The format specifier
- * Return: number of characters printed
+ * print_binary - print an unsigned int in binary
+ * @n: the unsigned int to print
+ * @len: pointer to length
  */
-int _printf(const char *format, ...)
+void print_binary(unsigned int n, int *len)
 {
-	int string_len = 0;
-		va_list args;
-		const char *str;
-		int num;
-
-		va_start(args, format);
-		while (*format)
-		{
-			if (*format != '%')
-			{
-				_putchar(*format);
-				string_len++;
-			}
-			else
-			{
-				format++;
-				if (*format == '\0')
-					break;
-
-				switch (*format)
-				{
-					case 'c':
-						num = va_arg(args, int);
-						_putchar(num);
-						string_len++;
-						break;
-
-					case 's':
-						str = va_arg(args, const char *);
-						if (str == NULL)
-							str = "(null)";
-						while (*str)
-						{
-							_putchar(*str);
-							str++;
-							string_len++;
-						}
-						break;
-
-					case '%':
-						_putchar('%');
-						string_len++;
-						break;
-
-					case 'd':
-					case 'i':
-						num = va_arg(args, int);
-						print_number(num, &string_len);
-						break;
-
-					default:
-						_putchar('%');
-						_putchar(*format);
-						string_len += 2;
-				}
-			}
-			format++;
-		}
-		va_end(args);
-		return (string_len);
+    if (n / 2)
+        print_binary(n / 2, len);
+    _putchar((n % 2) + '0');
+    *len += 1;
 }
 
 /**
- * print_number - Print an integer using _putchar
- * @n: The integer to print
- * @len: Pointer to the length of the ineteger
+ * print_string - print a string
+ * @str: the string to print
+ * @len: pointer to length
+ */
+void print_string(const char *str, int *len)
+{
+    if (str == NULL)
+        str = "(null)";
+    while (*str)
+    {
+        _putchar(*str);
+        str++;
+        *len += 1;
+    }
+}
+
+/**
+ * print_number - print an integer
+ * @n: the int to print
+ * @len: pointer to length
  */
 void print_number(int n, int *len)
 {
-	unsigned int num;
+    unsigned int num;
 
-	if (n < 0)
-	{
-		_putchar('-');
-		*len += 1;
-		num = -n;
-	}
-	else
-	{
-		num = n;
-	}
-	if (num / 10)
-		print_number(num / 10, len);
-	_putchar((num % 10) + '0');
-	*len += 1;
+    if (n < 0)
+    {
+        _putchar('-');
+        *len += 1;
+        num = -n;
+    }
+    else
+    {
+        num = n;
+    }
+    if (num / 10)
+        print_number(num / 10, len);
+    _putchar((num % 10) + '0');
+    *len += 1;
+}
+
+int _printf(const char *format, ...)
+{
+    int string_len = 0;
+    va_list args;
+
+    va_start(args, format);
+    while (format && *format)
+    {
+        if (*format != '%')
+        {
+            _putchar(*format);
+            string_len++;
+        }
+        else
+        {
+            format++;
+            if (*format == '\0')
+                break;
+
+            switch (*format)
+            {
+                case 'c':
+                    _putchar(va_arg(args, int));
+                    string_len++;
+                    break;
+
+                case 's':
+                    print_string(va_arg(args, const char *), &string_len);
+                    break;
+
+                case '%':
+                    _putchar('%');
+                    string_len++;
+                    break;
+
+                case 'd':
+                case 'i':
+                    print_number(va_arg(args, int), &string_len);
+                    break;
+
+                case 'b':
+                    print_binary(va_arg(args, unsigned int), &string_len);
+                    break;
+
+                case 'u':
+                    print_number(va_arg(args, unsigned int), &string_len);
+                    break;
+
+                case 'o':
+                    print_number(va_arg(args, unsigned int), &string_len);
+                    break;
+
+                case 'x':
+                    print_number(va_arg(args, unsigned int), &string_len);
+                    break;
+
+                case 'X':
+                    print_number(va_arg(args, unsigned int), &string_len);
+                    break;
+
+                default:
+                    _putchar('%');
+                    _putchar(*format);
+                    string_len += 2;
+            }
+        }
+        format++;
+    }
+    va_end(args);
+    return string_len;
 }
