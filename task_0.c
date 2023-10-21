@@ -14,7 +14,7 @@ void print_binary(unsigned int n, int *len)
 }
 
 /**
- * print_string - print a string
+ * print_string - function that prints a string
  * @str: the string to print
  * @len: pointer to length
  */
@@ -31,8 +31,8 @@ void print_string(const char *str, int *len)
 }
 
 /**
- * print_number - print an integer
- * @n: the int to print
+ * print_number - function that prints an integer
+ * @n: the integer to print
  * @len: pointer to length
  */
 void print_number(int n, int *len)
